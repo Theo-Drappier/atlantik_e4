@@ -21,7 +21,7 @@ class UsersBuild extends Build
     protected function build(\stdClass $class)
     {
         $user = new Users($class->id);
-        $user->setFirstname($class->fistname);
+        $user->setFirstname($class->firstname);
         $user->setLastname($class->lastname);
         $user->setAddress($class->address);
         $user->setPostcode($class->postcode);
@@ -29,5 +29,18 @@ class UsersBuild extends Build
         $user->setEmail($class->email);
         $user->setPassword($class->password);
         return $user;
+    }
+
+    public function exists($email, $password)
+    {
+        $pw = sha1($password);
+        $json = file_get_contents($this->_address.$this->_table.'/exists/'.$email.'/'.$pw);
+        $tabl = json_decode($json);
+        $obj = null;
+        if(!is_null($tabl))
+        {
+            $obj = $this->build($tabl);
+        }
+        return $obj;
     }
 }
