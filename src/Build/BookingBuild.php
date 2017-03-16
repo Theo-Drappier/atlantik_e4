@@ -16,6 +16,11 @@ class BookingBuild extends Build
     private $_crossingBuild;
     private $_usersBuild;
 
+    public function __construct()
+    {
+        $this->_table = 'booking';
+    }
+
     /**
      * @param mixed $crossingBuild
      */

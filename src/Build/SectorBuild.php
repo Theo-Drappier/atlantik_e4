@@ -13,6 +13,11 @@ use Tools\Build;
 
 class SectorBuild extends Build
 {
+    public function __construct()
+    {
+        $this->_table = 'sector';
+    }
+
     protected function build(\stdClass $class)
     {
         $sector = new Sector($class->id);

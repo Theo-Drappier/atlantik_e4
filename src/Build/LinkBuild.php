@@ -13,6 +13,11 @@ use Tools\Build;
 
 class LinkBuild extends Build
 {
+    public function __construct()
+    {
+        $this->_table = 'link';
+    }
+
     private $_harborBuild;
     private $_sectorBuild;
 

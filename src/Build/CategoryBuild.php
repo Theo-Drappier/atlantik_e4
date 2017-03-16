@@ -13,6 +13,11 @@ use BDD\Table\Category;
 
 class CategoryBuild
 {
+    public function __construct()
+    {
+        $this->_table = 'category';
+    }
+
     protected function build(\stdClass $class)
     {
         $category = new Category($class->id);

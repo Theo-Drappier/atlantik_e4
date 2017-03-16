@@ -13,6 +13,11 @@ use Tools\Build;
 
 class PeriodBuild extends Build
 {
+    public function __construct()
+    {
+        $this->_table = 'period';
+    }
+
     protected function build(\stdClass $class)
     {
         $period = new Period($class->id);

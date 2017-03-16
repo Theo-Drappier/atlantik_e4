@@ -18,6 +18,11 @@ class PriceBuild extends Build
     private $_typeBuild;
     private $_periodBuild;
 
+    public function __construct()
+    {
+        $this->_table = 'price';
+    }
+
     /**
      * @param mixed $linkBuild
      */

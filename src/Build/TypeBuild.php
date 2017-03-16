@@ -16,6 +16,11 @@ class TypeBuild extends Build
 {
     private $_categoryBuild;
 
+    public function __construct()
+    {
+        $this->_table = 'type';
+    }
+
     /**
      * @param mixed $categoryBuild
      */

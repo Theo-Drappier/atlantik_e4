@@ -13,6 +13,11 @@ use Tools\Build;
 
 class BoatBuild extends Build
 {
+    public function __construct()
+    {
+        $this->_table = 'boat';
+    }
+
     protected function build(\stdClass $class)
     {
         $boat = new Boat($class->id);

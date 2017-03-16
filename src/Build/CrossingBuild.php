@@ -16,6 +16,11 @@ class CrossingBuild
     private $_linkBuild;
     private $_boatBuild;
 
+    public function __construct()
+    {
+        $this->_table = 'crossing';
+    }
+
     /**
      * @param mixed $linkBuild
      */

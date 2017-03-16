@@ -13,6 +13,11 @@ use BDD\Table\Harbor;
 
 class HarborBuild
 {
+    public function __construct()
+    {
+        $this->_table = 'harbor';
+    }
+
     protected function build(\stdClass $class)
     {
         $harbor = new Harbor($class->id);

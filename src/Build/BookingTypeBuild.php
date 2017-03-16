@@ -16,8 +16,13 @@ class BookingTypeBuild extends Build
     private $_bookingBuild;
     private $_typeBuild;
 
+    public function __construct()
+    {
+        $this->_table = 'bookingtype';
+    }
+
     /**
-     * @param mixed $bookingTypeBuild
+     * @param mixed $bookingBuild
      */
     public function setBookingBuild(BookingBuild $bookingBuild)
     {

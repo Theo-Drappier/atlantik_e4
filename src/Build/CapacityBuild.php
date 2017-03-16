@@ -17,6 +17,11 @@ class CapacityBuild extends Build
     private $_categoryBuild;
     private $_boatBuild;
 
+    public function __construct()
+    {
+        $this->_table = 'capacity';
+    }
+
     /**
      * @param mixed $categoryBuild
      */

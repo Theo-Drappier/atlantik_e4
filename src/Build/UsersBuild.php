@@ -13,6 +13,11 @@ use Tools\Build;
 
 class UsersBuild extends Build
 {
+    public function __construct()
+    {
+        $this->_table = 'users';
+    }
+
     protected function build(\stdClass $class)
     {
         $user = new Users($class->id);
