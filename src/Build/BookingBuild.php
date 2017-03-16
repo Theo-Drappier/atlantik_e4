@@ -8,13 +8,14 @@
 
 namespace BDD\Build;
 
-
 use BDD\Table\Booking;
 use Tools\Build;
 
 class BookingBuild extends Build
 {
     private $_crossingBuild;
+    private $_usersBuild;
+
     /**
      * @param mixed $crossingBuild
      */
@@ -23,13 +24,19 @@ class BookingBuild extends Build
         $this->_crossingBuild = $crossingBuild;
     }
 
+    /**
+     * @param mixed $usersBuild
+     */
+    public function setUsersBuild(UsersBuild $usersBuild)
+    {
+        $this->_usersBuild = $usersBuild;
+    }
+
     protected function build(\stdClass $class)
     {
         $booking = new Booking($class->id);
-        $booking->setName($class->name);
-        $booking->setCity($class->city);
-        $booking->setPostcode($class->postcode);
         $booking->setCrossing($this->_crossingBuild->findOne($class->crossing_id));
+        $booking->setUser($this->_usersBuild->findOne($class->users_id));
         return $booking;
     }
 }
