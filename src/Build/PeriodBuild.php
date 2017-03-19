@@ -13,7 +13,7 @@ use Tools\Build;
 
 class PeriodBuild extends Build
 {
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'period';
     }
@@ -24,5 +24,14 @@ class PeriodBuild extends Build
         $period->setStartDate($class->start_date);
         $period->setEndDate($class->end_date);
         return $period;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['period']))
+        {
+            self::$_instances['period'] = new PeriodBuild();
+        }
+        return self::$_instances['period'];
     }
 }

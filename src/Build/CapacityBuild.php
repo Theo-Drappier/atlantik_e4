@@ -17,7 +17,7 @@ class CapacityBuild extends Build
     private $_categoryBuild;
     private $_boatBuild;
 
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'capacity';
     }
@@ -46,5 +46,14 @@ class CapacityBuild extends Build
         $capacity->setCategory($this->_categoryBuild->findOne($class->category_id));
         $capacity->setBoat($this->_boatBuild->findOne($class->boat_id));
         return $capacity;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['capacity']))
+        {
+            self::$_instances['capacity'] = new CapacityBuild();
+        }
+        return self::$_instances['capacity'];
     }
 }

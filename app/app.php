@@ -14,12 +14,12 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app['build.boat']=function()
 {
-    return new \BDD\Build\BoatBuild();
+    return \BDD\Build\BoatBuild::getInstances();
 };
 
 $app['build.booking']=function($app)
 {
-    $bookingBuild = new \BDD\Build\BookingBuild();
+    $bookingBuild = \BDD\Build\BookingBuild::getInstances();
     $bookingBuild->setUsersBuild($app['build.users']);
     $bookingBuild->setCrossingBuild($app['build.crossing']);
     return $bookingBuild;
@@ -27,7 +27,7 @@ $app['build.booking']=function($app)
 
 $app['build.bookingtype']=function($app)
 {
-    $bookingtypeBuild = new \BDD\Build\BookingTypeBuild();
+    $bookingtypeBuild = \BDD\Build\BookingTypeBuild::getInstances();
     $bookingtypeBuild->setBookingBuild($app['build.booking']);
     $bookingtypeBuild->setTypeBuild($app['build.type']);
     return $bookingtypeBuild;
@@ -35,7 +35,7 @@ $app['build.bookingtype']=function($app)
 
 $app['build.capacity']=function($app)
 {
-    $capacityBuild = new \BDD\Build\CapacityBuild();
+    $capacityBuild = \BDD\Build\CapacityBuild::getInstances();
     $capacityBuild->setCategoryBuild($app['build.category']);
     $capacityBuild->setBoatBuild($app['build.boat']);
     return $capacityBuild;
@@ -43,12 +43,12 @@ $app['build.capacity']=function($app)
 
 $app['build.category'] = function()
 {
-    return new \BDD\Build\CategoryBuild();
+    return \BDD\Build\CategoryBuild::getInstances();
 };
 
 $app['build.crossing'] = function($app)
 {
-    $crossingBuild = new \BDD\Build\CrossingBuild();
+    $crossingBuild = \BDD\Build\CrossingBuild::getInstances();
     $crossingBuild->setLinkBuild($app['build.link']);
     $crossingBuild->setBoatBuild($app['build.boat']);
     return $crossingBuild;
@@ -56,12 +56,12 @@ $app['build.crossing'] = function($app)
 
 $app['build.harbor'] = function()
 {
-    return new \BDD\Build\HarborBuild();
+    return \BDD\Build\HarborBuild::getInstances();
 };
 
 $app['build.link'] = function($app)
 {
-    $linkBuild = new \BDD\Build\LinkBuild();
+    $linkBuild = \BDD\Build\LinkBuild::getInstances();
     $linkBuild->setHarborBuild($app['build.harbor']);
     $linkBuild->setSectorBuild($app['build.sector']);
     return $linkBuild;
@@ -69,12 +69,12 @@ $app['build.link'] = function($app)
 
 $app['build.period'] = function()
 {
-    return new \BDD\Build\PeriodBuild();
+    return \BDD\Build\PeriodBuild::getInstances();
 };
 
 $app['build.price'] = function($app)
 {
-    $priceBuild = new \BDD\Build\PriceBuild();
+    $priceBuild = \BDD\Build\PriceBuild::getInstances();
     $priceBuild->setLinkBuild($app['build.link']);
     $priceBuild->setTypeBuild($app['build.type']);
     $priceBuild->setPeriodBuild($app['build.period']);
@@ -83,17 +83,17 @@ $app['build.price'] = function($app)
 
 $app['build.sector'] = function()
 {
-    return new \BDD\Build\SectorBuild();
+    return \BDD\Build\SectorBuild::getInstances();
 };
 
 $app['build.type'] = function($app)
 {
-    $typeBuild = new \BDD\Build\TypeBuild();
+    $typeBuild = \BDD\Build\TypeBuild::getInstances();
     $typeBuild->setCategoryBuild($app['build.category']);
     return $typeBuild;
 };
 
 $app['build.users'] = function()
 {
-    return new \BDD\Build\UsersBuild();
+    return \BDD\Build\UsersBuild::getInstances();
 };

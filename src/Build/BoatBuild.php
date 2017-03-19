@@ -13,7 +13,7 @@ use Tools\Build;
 
 class BoatBuild extends Build
 {
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'boat';
     }
@@ -23,5 +23,14 @@ class BoatBuild extends Build
         $boat = new Boat($class->id);
         $boat->setName($class->name);
         return $boat;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['boat']))
+        {
+            self::$_instances['boat'] = new BoatBuild();
+        }
+        return self::$_instances['boat'];
     }
 }

@@ -18,7 +18,7 @@ class PriceBuild extends Build
     private $_typeBuild;
     private $_periodBuild;
 
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'price';
     }
@@ -55,5 +55,14 @@ class PriceBuild extends Build
         $price->setPeriod($this->_periodBuild->findOne($class->period_id));
         $price->setPrice($class->price);
         return $price;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['price']))
+        {
+            self::$_instances['price'] = new PriceBuild();
+        }
+        return self::$_instances['price'];
     }
 }

@@ -13,13 +13,14 @@ use Tools\Build;
 
 class LinkBuild extends Build
 {
-    public function __construct()
-    {
-        $this->_table = 'link';
-    }
 
     private $_harborBuild;
     private $_sectorBuild;
+
+    private function __construct()
+    {
+        $this->_table = 'link';
+    }
 
     /**
      * @param mixed $harborBuild
@@ -44,5 +45,14 @@ class LinkBuild extends Build
         $link->setArrivalHarbor($this->_harborBuild->findOne($class->arrival_harbor_id));
         $link->setSector($this->_sectorBuild->findOne($class->sector_id));
         return $link;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['link']))
+        {
+            self::$_instances['link'] = new LinkBuild();
+        }
+        return self::$_instances['link'];
     }
 }

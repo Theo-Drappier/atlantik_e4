@@ -10,10 +10,11 @@ namespace BDD\Build;
 
 
 use BDD\Table\Category;
+use Tools\Build;
 
-class CategoryBuild
+class CategoryBuild extends Build
 {
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'category';
     }
@@ -24,5 +25,14 @@ class CategoryBuild
         $category->setCode($class->code);
         $category->setLabel($class->label);
         return $category;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['category']))
+        {
+            self::$_instances['category'] = new CategoryBuild();
+        }
+        return self::$_instances['category'];
     }
 }

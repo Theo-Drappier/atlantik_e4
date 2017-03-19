@@ -10,10 +10,11 @@ namespace BDD\Build;
 
 
 use BDD\Table\Harbor;
+use Tools\Build;
 
-class HarborBuild
+class HarborBuild extends Build
 {
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'harbor';
     }
@@ -23,5 +24,14 @@ class HarborBuild
         $harbor = new Harbor($class->id);
         $harbor->setName($class->name);
         return $harbor;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['harbor']))
+        {
+            self::$_instances['harbor'] = new HarborBuild();
+        }
+        return self::$_instances['harbor'];
     }
 }

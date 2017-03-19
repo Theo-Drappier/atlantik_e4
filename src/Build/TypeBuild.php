@@ -16,7 +16,7 @@ class TypeBuild extends Build
 {
     private $_categoryBuild;
 
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'type';
     }
@@ -36,5 +36,14 @@ class TypeBuild extends Build
         $type->setLabel($class->label);
         $type->setCategory($this->_categoryBuild->findOne($class->category_id));
         return $type;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['type']))
+        {
+            self::$_instances['type'] = new TypeBuild();
+        }
+        return self::$_instances['type'];
     }
 }

@@ -13,7 +13,7 @@ use Tools\Build;
 
 class UsersBuild extends Build
 {
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'users';
     }
@@ -42,5 +42,21 @@ class UsersBuild extends Build
             $obj = $this->build($tabl);
         }
         return $obj;
+    }
+
+    public function insert(array $userAdd)
+    {
+        $url = $this->_address.$this->_table.'/add/'.$userAdd['firstname'].'/'.$userAdd['lastname'].'/'.$userAdd['address'].'/'.$userAdd['postcode'].'/'.$userAdd['city'].'/'.$userAdd['email'].'/'.sha1($userAdd['password']);
+        $result = file_get_contents($url);
+        return json_decode($result);
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['users']))
+        {
+            self::$_instances['users'] = new UsersBuild();
+        }
+        return self::$_instances['users'];
     }
 }

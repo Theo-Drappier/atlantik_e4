@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <base href="http://127.0.0.1/E4/atlantik/web/">
-    <title>AdminLTE | Registration Page</title>
+    <title>Inscription</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     <link href="lib/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -11,6 +11,8 @@
     <link href="lib/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Theme style -->
     <link href="lib/css/AdminLTE.css" rel="stylesheet" type="text/css"/>
+    <!-- Custom style -->
+    <link href="lib/css/custom.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,6 +27,16 @@
     <div class="header"><h1>Première visite ?</h1><span>Inscrivez-vous !</span></div>
     <form action="register" method="post">
         <div class="body bg-gray">
+            {% if error==300 %}
+            <div class="form-group">
+                <label>Erreur ! Les mots de passes ne correspondent pas.</label>
+            </div>
+            {% endif %}
+            {% if error==500 %}
+            <div class="form-group">
+                <label>Erreur ! Cet e-mail est déjà lié à un compte.</label>
+            </div>
+            {% endif %}
             <div class="form-group">
                 <input type="text" name="firstname" class="form-control" placeholder="Prénom"/>
             </div>

@@ -16,7 +16,7 @@ class BookingTypeBuild extends Build
     private $_bookingBuild;
     private $_typeBuild;
 
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'bookingtype';
     }
@@ -44,5 +44,14 @@ class BookingTypeBuild extends Build
         $bookingType->setBooking($this->_bookingBuild->findOne($class->booking_id));
         $bookingType->setType($this->_typeBuild->findOne($class->type_id));
         return $bookingType;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['bookingtype']))
+        {
+            self::$_instances['bookingtype'] = new BookingTypeBuild();
+        }
+        return self::$_instances['bookingtype'];
     }
 }

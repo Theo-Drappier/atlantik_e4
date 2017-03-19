@@ -16,7 +16,7 @@ class BookingBuild extends Build
     private $_crossingBuild;
     private $_usersBuild;
 
-    public function __construct()
+    private function __construct()
     {
         $this->_table = 'booking';
     }
@@ -43,5 +43,14 @@ class BookingBuild extends Build
         $booking->setCrossing($this->_crossingBuild->findOne($class->crossing_id));
         $booking->setUser($this->_usersBuild->findOne($class->users_id));
         return $booking;
+    }
+
+    public static function getInstances()
+    {
+        if(!isset(self::$_instances['booking']))
+        {
+            self::$_instances['booking'] = new BookingBuild();
+        }
+        return self::$_instances['booking'];
     }
 }
