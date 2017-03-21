@@ -6,6 +6,10 @@ $app->before(function() use ($app)
     {
         $app['session']->set('currentUser', $app['session']->get('user'));
     }
+    else
+    {
+        $app->redirect('.');
+    }
 });
 
 $app->get('/', function () use ($app)
