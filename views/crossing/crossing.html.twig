@@ -1,6 +1,6 @@
 {% extends 'others/layout.html.twig' %}
 
-{% block title %}Trajets{% endblock %}
+{% block title %}Traversées{% endblock %}
 
 {% block contentheader %}
 
@@ -16,6 +16,7 @@
             <th>Bateau</th>
             <th>Port de départ</th>
             <th>Port d'arrivée</th>
+            <th>Détails des trajets</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
                 <td>{{ crossing.boat.name }}</td>
                 <td>{{ crossing.link.startingHarbor.name }}</td>
                 <td>{{ crossing.link.arrivalHarbor.name }}</td>
+                <td><a href="crossing/{{ crossing.id }}"><button class="btn">Détails</button></a></td>
             </tr>
         {% endfor %}
         </tbody>

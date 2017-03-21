@@ -10,6 +10,7 @@ namespace BDD\Build;
 
 use BDD\Table\Period;
 use Tools\Build;
+use Tools\Tools;
 
 class PeriodBuild extends Build
 {
@@ -21,8 +22,8 @@ class PeriodBuild extends Build
     protected function build(\stdClass $class)
     {
         $period = new Period($class->id);
-        $period->setStartDate($class->start_date);
-        $period->setEndDate($class->end_date);
+        $period->setStartDate(Tools::dateUSToFR($class->start_date));
+        $period->setEndDate(Tools::dateUSToFR($class->end_date));
         return $period;
     }
 

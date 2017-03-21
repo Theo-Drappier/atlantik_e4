@@ -16,8 +16,9 @@ $app->get('/', function () use ($app)
     }
     else
     {
+        $links = $app['build.link']->findAll();
         $render = $app['twig']->render(
-            'index.html.twig', array('user' => $app['session']->get('currentUser'))
+            'index.html.twig', array('user' => $app['session']->get('currentUser'), 'links' => $links)
         );
     }
     $app['session']->set('error', 200);

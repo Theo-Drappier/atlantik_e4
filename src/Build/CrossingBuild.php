@@ -11,6 +11,7 @@ namespace BDD\Build;
 
 use BDD\Table\Crossing;
 use Tools\Build;
+use Tools\Tools;
 
 class CrossingBuild extends Build
 {
@@ -41,7 +42,7 @@ class CrossingBuild extends Build
     protected function build(\stdClass $class)
     {
         $crossing = new Crossing($class->id);
-        $crossing->setDate($class->date);
+        $crossing->setDate(Tools::dateUSToFR($class->date));
         $crossing->setTimeStart($class->time_start);
         $crossing->setLink($this->_linkBuild->findOne($class->link_id));
         $crossing->setBoat($this->_boatBuild->findOne($class->boat_id));
@@ -55,5 +56,16 @@ class CrossingBuild extends Build
             self::$_instances['crossing'] = new CrossingBuild();
         }
         return self::$_instances['crossing'];
+    }
+
+    public function findLast()
+    {
+        $getJson=file_get_contents($this->_address.$this->_table.'/findLast');
+        $tablClass=json_decode($getJson);
+        $lesClass=[];
+        foreach($tablClass as $row){
+            $lesClass[$row->id]=$this->build($row);
+        }
+        return $lesClass;
     }
 }
