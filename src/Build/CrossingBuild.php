@@ -68,4 +68,26 @@ class CrossingBuild extends Build
         }
         return $lesClass;
     }
+
+    public function findByDateTime($date, $time)
+    {
+        $getJson=file_get_contents($this->_address.$this->_table.'/byDateTime/'.$date.'/'.$time);
+        $tablClass=json_decode($getJson);
+        $lesClass=[];
+        foreach($tablClass as $row){
+            $lesClass[$row->id]=$this->build($row);
+        }
+        return $lesClass;
+    }
+
+    public function findByDateTimeLink($date, $time, $link_id)
+    {
+        $getJson=file_get_contents($this->_address.$this->_table.'/byDateTimeLink/'.$date.'/'.$time.'/'.$link_id);
+        $tablClass=json_decode($getJson);
+        $lesClass=[];
+        foreach($tablClass as $row){
+            $lesClass[$row->id]=$this->build($row);
+        }
+        return $lesClass;
+    }
 }

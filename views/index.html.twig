@@ -14,7 +14,17 @@
                     <h2 class="box-title">Recherche de traversées</h2>
                 </div>
                 <div class="box-body">
-                    <form method="post" action="search/crossing">
+                    <form method="post" action="search_crossing">
+                        {% if error == 401 %}
+                            <div class="form-group">
+                                <label class="error">Veuillez entrer une date et une heure</label>
+                            </div>
+                        {% endif %}
+                        {% if error == 402 %}
+                            <div class="form-group">
+                                <label class="error">Veuillez respecter le format de la date</label>
+                            </div>
+                        {% endif %}
                         <div class="form-group">
                             <label>Date :</label>
                             <div class="row">
@@ -47,16 +57,17 @@
                             <label>Lien</label>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <select class="form-control">
+                                    <select class="form-control" name="link">
+                                        <option value="unselected" selected>---</option>
                                         {% for link in links %}
-                                            <option>{{ link.startingHarbor.name }} &rarr; {{ link.arrivalHarbor.name }}</option>
+                                            <option value="{{ link.id }}">{{ link.startingHarbor.name }} &rarr; {{ link.arrivalHarbor.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" />
+                            <input type="submit" class="btn btn-primary"/>
                         </div>
                     </form>
                 </div>

@@ -26,12 +26,9 @@ abstract class Build
     public function findOne($id)
     {
         $getJson=file_get_contents($this->_address.'find/'.$this->_table.'/'.$id);
-        $tablClass=json_decode($getJson);
-        $lesClass=[];
-        foreach($tablClass as $row){
-            $lesClass[]=$this->build($row);
-        }
-        return $lesClass[0];
+        $class=json_decode($getJson);
+        $laClass=$this->build($class);
+        return $laClass;
     }
 
     abstract protected function build(\stdClass $class);
