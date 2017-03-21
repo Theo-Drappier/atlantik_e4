@@ -3,7 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block contentheader %}
-    <h1>Recherche de traversées</h1>
+    <center><h1>Accueil</h1></center>
 {% endblock %}
 
 {% block contentmain %}
@@ -15,12 +15,17 @@
                 </div>
                 <div class="box-body">
                     <form method="post" action="search_crossing">
-                        {% if error == 401 %}
+                        {% if error ==401 %}
+                            <div class="form-group">
+                                <label class="error">Veuillez sélectionner un lien</label>
+                            </div>
+                        {% endif %}
+                        {% if error == 402 %}
                             <div class="form-group">
                                 <label class="error">Veuillez entrer une date et une heure</label>
                             </div>
                         {% endif %}
-                        {% if error == 402 %}
+                        {% if error == 403 %}
                             <div class="form-group">
                                 <label class="error">Veuillez respecter le format de la date</label>
                             </div>

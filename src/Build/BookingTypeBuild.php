@@ -54,4 +54,16 @@ class BookingTypeBuild extends Build
         }
         return self::$_instances['bookingtype'];
     }
+
+    public function sumPassengerBuy($crossing_id)
+    {
+        $num=file_get_contents($this->_address.$this->_table.'/sumPassengerBuy/'.$crossing_id);
+        return $num;
+    }
+
+    public function sumVehicleBuy($crossing_id)
+    {
+        $num=file_get_contents($this->_address.$this->_table.'/sumVehicleBuy/'.$crossing_id);
+        return $num;
+    }
 }

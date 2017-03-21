@@ -56,4 +56,40 @@ class CapacityBuild extends Build
         }
         return self::$_instances['capacity'];
     }
+
+    /**
+     * find the capacity available on a boat for passenger
+     * @param $boat_id
+     * @return mixed
+     */
+    public function findPassengerByBoat($boat_id)
+    {
+        $getJson=file_get_contents($this->_address.$this->_table.'/passengerByBoat/'.$boat_id);
+        $class=json_decode($getJson);
+        return $class->number;
+    }
+
+    /**
+     * find the capacity available on a boat for vehicle light
+     * @param $boat_id
+     * @return mixed
+     */
+    public function findVehicleLightByBoat($boat_id)
+    {
+        $getJson=file_get_contents($this->_address.$this->_table.'/vehicleLightByBoat/'.$boat_id);
+        $class=json_decode($getJson);
+        return $class->number;
+    }
+
+    /**
+     * find the capacity available on a boat for vehicle heavy
+     * @param $boat_id
+     * @return mixed
+     */
+    public function findVehicleHeavyByboat($boat_id)
+    {
+        $getJson=file_get_contents($this->_address.$this->_table.'/vehicleHeavyByBoat/'.$boat_id);
+        $class=json_decode($getJson);
+        return $class->number;
+    }
 }

@@ -7,30 +7,35 @@
 {% endblock %}
 
 {% block contentmain %}
-<div class="box-body table-responsive">
-    <table class="table table-bordered table-hover dataTable">
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Heure de départ</th>
-            <th>Bateau</th>
-            <th>Port de départ</th>
-            <th>Port d'arrivée</th>
-            <th>Détails des trajets</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for crossing in crossings %}
-            <tr>
-                <td>{{ crossing.date }}</td>
-                <td>{{ crossing.timeStart }}</td>
-                <td>{{ crossing.boat.name }}</td>
-                <td>{{ crossing.link.startingHarbor.name }}</td>
-                <td>{{ crossing.link.arrivalHarbor.name }}</td>
-                <td><a href="crossing/{{ crossing.id }}"><button class="btn">Détails</button></a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    <div class="box">
+        <div class="box-header">
+            <h1 class="box-title">Traversées</h1>
+        </div>
+        <div class="box-body table-responsive">
+            <table id="table-crossing" class="table table-bordered table-hover display">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Heure de départ</th>
+                    <th>Bateau</th>
+                    <th>Port de départ</th>
+                    <th>Port d'arrivée</th>
+                    <th>Détails des trajets</th>
+                </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                {% for crossing in crossings %}
+                    <tr>
+                        <td>{{ crossing.date }}</td>
+                        <td>{{ crossing.timeStart }}</td>
+                        <td>{{ crossing.boat.name }}</td>
+                        <td>{{ crossing.link.startingHarbor.name }}</td>
+                        <td>{{ crossing.link.arrivalHarbor.name }}</td>
+                        <td><a href="crossing/{{ crossing.id }}"><button class="btn">Détails</button></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
