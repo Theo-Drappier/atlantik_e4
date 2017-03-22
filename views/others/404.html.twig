@@ -1,0 +1,23 @@
+{% extends 'others/layout.html.twig' %}
+
+{% block title %}Erreur 404{% endblock %}
+
+{% block contentheader %}
+    <h1>
+        Page Erreur 404
+    </h1>
+{% endblock %}
+
+{% block contentmain %}
+    <div class="error-page">
+        <h2 class="headline text-info"> 404</h2>
+        <div class="error-content">
+            <h3><i class="fa fa-warning text-yellow"></i> Oops! Page introuvable.</h3>
+            <p>
+                Nous ne trouvons pas la page que vous recherchez.
+                Meanwhile, you may <a href='.'>return to dashboard</a> or try using the search
+                form.
+            </p>
+        </div>
+    </div>
+{% endblock %}

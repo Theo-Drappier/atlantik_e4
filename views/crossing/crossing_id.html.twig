@@ -8,10 +8,12 @@
 
 {% block contentmain %}
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="box">
                 <div class="box-header">
-                    <h1 class="box-title">{{ crossing.link.startingHarbor.name }} &rarr; {{ crossing.link.arrivalHarbor.name }} <small>Traversée</small></h1>
+                    <h1 class="box-title">{{ crossing.link.startingHarbor.name }} &rarr; {{ crossing.link.arrivalHarbor.name }}
+                        <small>Traversée</small>
+                    </h1>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -40,19 +42,64 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Nombre de places passagers disponibles : </strong>{{ passengerAvailable }}
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Nombre de places parking disponibles : </strong>{{ vehicleAvailable }}
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box">
                 <div class="box-header">
                     <h1 class="box-title">Réservation</h1>
                 </div>
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-6">
-
+                        <div class="col-md-12">
+                            <form method="post" action="booking">
+                                <div class="form-group">
+                                    <label>Nombre de passager</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input name="nbPassengers" type="number" class="form-control" value="0" max="{{ passengerAvailable }}"
+                                                    {% if full == 402 or full == 403 %} disabled {% endif %}  />
+                                        </div>
+                                        <div class="col-md-8">
+                                            {% if full == 402 %}<label class="error">Aucunes places passagers disponibles</label>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre de véhicules</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input name="nbVehicles" type="number" class="form-control" value="0" max="{{ vehicleAvailable }}"
+                                                    {% if full == 401 or full == 403 %} disabled {% endif %} />
+                                        </div>
+                                        <div class="col-md-8">
+                                            {% if full == 401 %}<label class="error">Aucunes places parking disponibles</label>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="submit" value="Réservez !" class="btn" {% if full == 403 %} disabled {% endif %}/>
+                                        </div>
+                                        <div class="col-md-8">
+                                            {% if full == 403 %}<label class="error">Cette traversée est complète !</label>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

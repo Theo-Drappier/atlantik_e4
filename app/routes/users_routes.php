@@ -85,3 +85,8 @@ $app->post('/register', function() use ($app)
     }
     return $app->redirect('.');
 });
+
+$app->error(function() use ($app)
+{
+    return $app['twig']->render('others/404.html.twig', array('user' => $app['session']->get('currentUser')));
+});

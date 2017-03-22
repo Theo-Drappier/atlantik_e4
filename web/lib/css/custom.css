@@ -1,4 +1,9 @@
-label.error
+.error
 {
     color: red;
+}
+
+.border-a
+{
+    border-radius: 10px;
 }
