@@ -14,31 +14,28 @@ $app->get('/crossing/{id}', function ($id) use ($app)
     $crossing = $app['build.crossing']->findOne($id);
     $capacityPassenger = $app['build.capacity']->findPassengerByBoat($crossing->getBoat()->getId());
     $capacityVehicle = $app['build.capacity']->findVehicleLightByBoat($crossing->getBoat()->getId());
+    $capacityVehicleHeavy = $app['build.capacity']->findVehicleHeavyByBoat($crossing->getBoat()->getId());
     $bookingTypePassenger = $app['build.bookingtype']->sumPassengerBuy($id);
     $bookingTypeVehicle = $app['build.bookingtype']->sumVehicleBuy($id);
+    $bookingTypeVehicleHeavy = $app['build.bookingtype']->sumVehicleHeavyBuy($id);
     $passengerAvailable = $capacityPassenger - $bookingTypePassenger;
     $vehicleAvailable = $capacityVehicle - $bookingTypeVehicle;
+    $vehicleHeavyAvailable = $capacityVehicleHeavy - $bookingTypeVehicleHeavy;
 
-    if ($capacityPassenger == $bookingTypePassenger && $capacityVehicle == $bookingTypeVehicle)
+    if ($capacityPassenger == $bookingTypePassenger && $capacityVehicle == $bookingTypeVehicle && $capacityVehicleHeavy == $bookingTypeVehicleHeavy)
     {
         $app['session']->set('full', 403);
-    }
-    elseif ($capacityVehicle == $bookingTypeVehicle)
-    {
-        $app['session']->set('full', 401);
-    }
-    elseif ($capacityPassenger == $bookingTypePassenger)
-    {
-        $app['session']->set('full', 402);
     }
     else
     {
         $app['session']->set('full', 400);
     }
+
     return $app['twig']->render(
         'crossing/crossing_id.html.twig',
         array('user' => $app['session']->get('currentUser'), 'crossing' => $crossing, 'passenger' => $capacityPassenger, 'vehicle' => $capacityVehicle,
-            'full' => $app['session']->get('full'), 'passengerAvailable' => $passengerAvailable, 'vehicleAvailable' => $vehicleAvailable)
+            'vehicleHeavy' => $capacityVehicleHeavy, 'full' => $app['session']->get('full'), 'passengerAvailable' => $passengerAvailable,
+            'vehicleAvailable' => $vehicleAvailable, 'vehicleHeavyAvailable' => $vehicleHeavyAvailable)
     );
 });
 

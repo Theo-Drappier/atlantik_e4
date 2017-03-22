@@ -78,7 +78,15 @@ class CapacityBuild extends Build
     {
         $getJson=file_get_contents($this->_address.$this->_table.'/vehicleLightByBoat/'.$boat_id);
         $class=json_decode($getJson);
-        return $class->number;
+        if($class == [])
+        {
+            $response = null;
+        }
+        else
+        {
+            $response = $class->number;
+        }
+        return $response;
     }
 
     /**
@@ -90,6 +98,14 @@ class CapacityBuild extends Build
     {
         $getJson=file_get_contents($this->_address.$this->_table.'/vehicleHeavyByBoat/'.$boat_id);
         $class=json_decode($getJson);
-        return $class->number;
+        if($class == [])
+        {
+            $response = null;
+        }
+        else
+        {
+            $response = $class->number;
+        }
+        return $response;
     }
 }

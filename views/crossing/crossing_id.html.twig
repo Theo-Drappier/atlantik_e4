@@ -34,21 +34,27 @@
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <strong>Nombre de passager max : </strong>{{ passenger }}
                             </div>
-                            <div class="col-md-6">
-                                <strong>Nombre de véhicules max : </strong>{{ vehicle }}
+                            <div class="col-md-4">
+                                <strong>Nombre de véhicules léger max : </strong>{{ vehicle }}
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Nombre de véhicules lourd max : </strong>{{ vehicleHeavy }}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <strong>Nombre de places passagers disponibles : </strong>{{ passengerAvailable }}
                             </div>
-                            <div class="col-md-6">
-                                <strong>Nombre de places parking disponibles : </strong>{{ vehicleAvailable }}
+                            <div class="col-md-4">
+                                <strong>Nombre de places parking disponibles (léger) : </strong>{{ vehicleAvailable }}
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Nombre de places parking disponibles (lourd) : </strong>{{ vehicleHeavyAvailable }}
                             </div>
                         </div>
                     </div>
@@ -64,31 +70,44 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form method="post" action="booking">
+                            <form method="post" action="newBooking">
                                 <div class="form-group">
                                     <label>Nombre de passager</label>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <input name="nbPassengers" type="number" class="form-control" value="0" max="{{ passengerAvailable }}"
-                                                    {% if full == 402 or full == 403 %} disabled {% endif %}  />
+                                                    {% if passengerAvailable == 0 %} disabled {% endif %}  />
                                         </div>
                                         <div class="col-md-8">
-                                            {% if full == 402 %}<label class="error">Aucunes places passagers disponibles</label>{% endif %}
+                                            {% if full == 400 and passengerAvailable == 0 %}<label class="error">Aucunes places passagers disponibles</label>{% endif %}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nombre de véhicules</label>
+                                    <label>Nombre de véhicules légers</label>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <input name="nbVehicles" type="number" class="form-control" value="0" max="{{ vehicleAvailable }}"
-                                                    {% if full == 401 or full == 403 %} disabled {% endif %} />
+                                                    {% if vehicleAvailable == 0 %} disabled {% endif %} />
                                         </div>
                                         <div class="col-md-8">
-                                            {% if full == 401 %}<label class="error">Aucunes places parking disponibles</label>{% endif %}
+                                            {% if full == 400 and vehicleAvailable == 0 %}<label class="error">Aucunes places parking disponibles</label>{% endif %}
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>Nombre de véhicules lourds</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input name="nbVehiclesHeavy" type="number" class="form-control" value="0" max="{{ vehicleHeavyAvailable }}"
+                                                    {% if vehicleHeavyAvailable == 0 %} disabled {% endif %} />
+                                        </div>
+                                        <div class="col-md-8">
+                                            {% if full == 400 and vehicleHeavyAvailable == 0 %}<label class="error">Aucunes places parking disponibles</label>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" value="{{ crossing.id }}" name="crossingId" />
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-4">

@@ -66,4 +66,10 @@ class BookingTypeBuild extends Build
         $num=file_get_contents($this->_address.$this->_table.'/sumVehicleBuy/'.$crossing_id);
         return $num;
     }
+
+    public function sumVehicleHeavyBuy($crossing_id)
+    {
+        $num=file_get_contents($this->_address.$this->_table.'/sumVehicleHeavyBuy/'.$crossing_id);
+        return $num;
+    }
 }
