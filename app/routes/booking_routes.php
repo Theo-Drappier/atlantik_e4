@@ -43,5 +43,14 @@ $app->post('/newBooking', function() use ($app)
 
 $app->get('/listBooking', function() use ($app)
 {
-
+    $bookingUser = $app['build.booking']->findAllByUser($app['session']->get('currentUser')->getId());
+    $bookingTypeUser = [];
+    foreach($bookingUser as $row)
+    {
+        $bookingTypeUser[] = $app['build.bookingtype']->findAllByBooking($row->getId());
+    }
+    unset($bookingUser);
+    return $app['twig']->render('booking/list_booking.html.twig',
+        array('user' => $app['session']->get('currentUser'))
+    );
 });

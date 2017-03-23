@@ -31,7 +31,7 @@ class Booking
     /**
      * @param mixed $user
      */
-    public function setUser(User $user)
+    public function setUser(Users $user)
     {
         $this->_user = $user;
     }

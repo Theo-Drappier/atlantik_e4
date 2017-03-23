@@ -46,7 +46,7 @@ $app->post('/search_crossing', function () use ($app)
         //$crossings = $app['build.crossing']->findByDateTime(Tools::dateFRToUS($_POST['date']), $_POST['hour']);
         $app['session']->set('error', 401);
     }
-    elseif (empty($_POST['date']) || empty($_POST['hour']))
+    elseif (empty($_POST['date']))
     {
         $app['session']->set('error', 402);
     }
