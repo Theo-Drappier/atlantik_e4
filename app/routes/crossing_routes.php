@@ -22,7 +22,7 @@ $app->get('/crossing/{id}', function ($id) use ($app)
     $vehicleAvailable = $capacityVehicle - $bookingTypeVehicle;
     $vehicleHeavyAvailable = $capacityVehicleHeavy - $bookingTypeVehicleHeavy;
 
-    if ($capacityPassenger == $bookingTypePassenger && $capacityVehicle == $bookingTypeVehicle && $capacityVehicleHeavy == $bookingTypeVehicleHeavy)
+    if ($passengerAvailable == 0 && $vehicleAvailable == 0 && $vehicleHeavyAvailable == 0)
     {
         $app['session']->set('full', 403);
     }

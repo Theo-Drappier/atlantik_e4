@@ -72,4 +72,24 @@ class BookingTypeBuild extends Build
         $num=file_get_contents($this->_address.$this->_table.'/sumVehicleHeavyBuy/'.$crossing_id);
         return $num;
     }
+
+    public function insert($quantity,$booking_id,$type_id)
+    {
+        $url = $this->_address.$this->_table.'/add/'.$quantity.'/'.$booking_id.'/'.$type_id;
+        $messageJson = file_get_contents($url);
+        $message = json_decode($messageJson);
+        return $message;
+    }
+
+    public function findAllByBooking($booking_id)
+    {
+        $url = $this->_address.$this->_table.'/byBooking/'.$booking_id;
+        $getJson = file_get_contents($url);
+        $tablClass = json_decode($getJson);
+        $lesClass = [];
+        foreach($tablClass as $row){
+            $lesClass[$row->id]=$this->build($row);
+        }
+        return $lesClass;
+    }
 }

@@ -53,4 +53,25 @@ class BookingBuild extends Build
         }
         return self::$_instances['booking'];
     }
+
+    public function findAllByUser($user_id)
+    {
+        $url = $this->_address.$this->_table.'/byUser/'.$user_id;
+        $getJson = file_get_contents($url);
+        $tablClass = json_decode($getJson);
+        $lesClass = [];
+        foreach($tablClass as $row){
+            $lesClass[$row->id]=$this->build($row);
+        }
+        return $lesClass;
+    }
+
+    public function insert($crossing_id, $users_id)
+    {
+        $url = $this->_address.$this->_table.'/add/'.$crossing_id.'/'.$users_id;
+        var_dump($url);
+        $messageJson = file_get_contents($url);
+        $message = json_decode($messageJson);
+        return $message;
+    }
 }
