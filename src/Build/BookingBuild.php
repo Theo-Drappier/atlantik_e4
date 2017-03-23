@@ -69,7 +69,14 @@ class BookingBuild extends Build
     public function insert($crossing_id, $users_id)
     {
         $url = $this->_address.$this->_table.'/add/'.$crossing_id.'/'.$users_id;
-        var_dump($url);
+        $messageJson = file_get_contents($url);
+        $message = json_decode($messageJson);
+        return $message;
+    }
+
+    public function delete($id)
+    {
+        $url = $this->_address.$this->_table.'/delete/'.$id;
         $messageJson = file_get_contents($url);
         $message = json_decode($messageJson);
         return $message;

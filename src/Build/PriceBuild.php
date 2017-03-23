@@ -65,4 +65,13 @@ class PriceBuild extends Build
         }
         return self::$_instances['price'];
     }
+
+    public function findOneByLinkTypePeriod($link_id, $type_id, $period_id)
+    {
+        $url = $this->_address.$this->_table.'/byLinkTypePeriod/'.$link_id.'/'.$type_id.'/'.$period_id;
+        $getJson = file_get_contents($url);
+        $class = json_decode($getJson);
+        $laClass = $this->build($class);
+        return $laClass;
+    }
 }

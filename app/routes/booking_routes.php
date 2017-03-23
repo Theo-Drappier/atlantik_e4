@@ -1,5 +1,7 @@
 <?php
 
+use Tools\Tools;
+
 $app->post('/newBooking', function() use ($app)
 {
     $nbQuantity = [];
@@ -49,11 +51,58 @@ $app->get('/listBooking', function() use ($app)
     );
 });
 
-$app->get('/booking/:id', function($id) use ($app)
+$app->get('/booking/{id}', function($id) use ($app)
 {
-    $bookingTypeUser = $app['build.bookingtype']->findAllByBooking($id);
+    $app['session']->set('error', 0);
+    $bookingUser = $app['build.booking']->findOne($id);
+    if($bookingUser->getUser()->getId() == $app['session']->get('currentUser')->getId())
+    {
+        $bookingTypeUser = $app['build.bookingtype']->findAllByBooking($id);
 
-    return $app['twig']->render('booking/booking_id.html.twig',
-        array('user' => $app['session']->get('currentUser'), 'bookingType' => $bookingTypeUser, 'id' => $id)
-    );
+        $link_id = $bookingUser->getCrossing()->getLink()->getId();
+        $period = $app['build.period']->findPeriod(Tools::dateFRToUS($bookingUser->getCrossing()->getDate()));
+
+        $somme = 0;
+        foreach($bookingTypeUser as $row)
+        {
+            $type_id = $row->getType()->getId();
+            $price = $app['build.price']->findOneByLinkTypePeriod($link_id, $type_id, $period->getId());
+            $row->setPrice($price);
+            $somme += $row->getQuantity() * $row->getPrice()->getPrice();
+        }
+
+        $currDate = date("Y-m-d");
+
+        if($currDate >= Tools::dateFRToUS($bookingUser->getCrossing()->getDate()))
+        {
+            $app['session']->set('error', 403);
+        }
+
+        return $app['twig']->render('booking/booking_id.html.twig',
+            array('user' => $app['session']->get('currentUser'), 'bookingType' => $bookingTypeUser, 'id' => $id,
+                'booking' => $bookingUser, 'somme' => $somme, 'error' => $app['session']->get('error'))
+        );
+    }
+    else
+    {
+        return $app['twig']->render('others/405.html.twig',
+            array('user' => $app['session']->get('currentUser'))
+        );
+    }
+
+});
+
+$app->post('/deleteBooking', function() use ($app)
+{
+    $id = $_POST['booking_id'];
+    $message = $app['build.bookingtype']->deleteByBooking($id);
+    if($message->message == 'Success')
+    {
+        $app['build.booking']->delete($id);
+        return $app->redirect('listBooking');
+    }
+    else
+    {
+        return $app->redirect('booking/'.$id);
+    }
 });

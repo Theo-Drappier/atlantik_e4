@@ -7,5 +7,71 @@
 {% endblock %}
 
 {% block contentmain %}
-
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box">
+                <div class="box-header">
+                    <h1 class="box-title">Récapitulatif de votre réservation</h1>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <strong>Date de départ : </strong>{{ booking.crossing.date }}
+                            </div>
+                            <div class="form-group">
+                                <strong>Heure de départ : </strong>{{ booking.crossing.timeStart }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <strong>Bateau : </strong>{{ booking.crossing.boat.name }}
+                            </div>
+                            <div class="form-group">
+                                <strong>Liaison : </strong>{{ booking.crossing.link.startingHarbor.name }} &rarr; {{ booking.crossing.link.arrivalHarbor.name }}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-hover display">
+                                <thead>
+                                <tr>
+                                    <th>Type de places</th>
+                                    <th>Quantité</th>
+                                    <th>Prix</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for row in bookingType %}
+                                    <tr>
+                                        <td>{{ row.type.label }}</td>
+                                        <td>{{ row.quantity }}</td>
+                                        <td>{{ row.price.price }} €</td>
+                                        <td>{{ row.quantity * row.price.price }} €</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ somme }} €</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <form action="deleteBooking" method="post">
+                        <div class="form-group">
+                            <input type="hidden" value="{{ id }}" name="booking_id" />
+                            <button type="submit" class="btn btn-danger" {% if error == 403 %}disabled{% endif %}>Annuler la réservation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

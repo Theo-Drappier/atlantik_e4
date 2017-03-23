@@ -35,4 +35,13 @@ class PeriodBuild extends Build
         }
         return self::$_instances['period'];
     }
+
+    public function findPeriod($date)
+    {
+        $url = $this->_address.$this->_table.'/get/'.$date;
+        $getJson = file_get_contents($url);
+        $class = json_decode($getJson);
+        $laClass = $this->build($class);
+        return $laClass;
+    }
 }

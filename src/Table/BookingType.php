@@ -15,6 +15,7 @@ class BookingType
     private $_quantity;
     private $_booking;
     private $_type;
+    private $_price;
 
     public function __construct($id)
     {
@@ -43,6 +44,14 @@ class BookingType
     public function setType(Type $type)
     {
         $this->_type = $type;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice(Price $price)
+    {
+        $this->_price = $price;
     }
 
     /**
@@ -77,4 +86,11 @@ class BookingType
         return $this->_type;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->_price;
+    }
 }

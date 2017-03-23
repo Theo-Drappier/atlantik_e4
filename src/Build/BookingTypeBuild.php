@@ -43,6 +43,7 @@ class BookingTypeBuild extends Build
         $bookingType->setQuantity($class->quantity);
         $bookingType->setBooking($this->_bookingBuild->findOne($class->booking_id));
         $bookingType->setType($this->_typeBuild->findOne($class->type_id));
+
         return $bookingType;
     }
 
@@ -91,5 +92,13 @@ class BookingTypeBuild extends Build
             $lesClass[$row->id]=$this->build($row);
         }
         return $lesClass;
+    }
+
+    public function deleteByBooking($booking_id)
+    {
+        $url = $this->_address.$this->_table.'/deleteByBooking/'.$booking_id;
+        $messageJson = file_get_contents($url);
+        $message = json_decode($messageJson);
+        return $message;
     }
 }
