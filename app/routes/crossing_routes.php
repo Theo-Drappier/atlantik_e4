@@ -3,7 +3,9 @@ use Tools\Tools;
 
 $app->get('/crossing', function () use ($app)
 {
-    $crossings = $app['build.crossing']->findLast();
+    $date = date("Y-m-d");
+    $hour = date("H:i:s");
+    $crossings = $app['build.crossing']->findLast($date, $hour, 100);
     return $app['twig']->render(
         'crossing/crossing.html.twig', array('user' => $app['session']->get('currentUser'), 'crossings' => $crossings)
     );
@@ -31,11 +33,15 @@ $app->get('/crossing/{id}', function ($id) use ($app)
         $app['session']->set('full', 400);
     }
 
+    $date = date("Y-m-d");
+
+    $bool = ($date > Tools::dateFRToUS($crossing->getDate())) ? 1 : 0;
+
     return $app['twig']->render(
         'crossing/crossing_id.html.twig',
         array('user' => $app['session']->get('currentUser'), 'crossing' => $crossing, 'passenger' => $capacityPassenger, 'vehicle' => $capacityVehicle,
             'vehicleHeavy' => $capacityVehicleHeavy, 'full' => $app['session']->get('full'), 'passengerAvailable' => $passengerAvailable,
-            'vehicleAvailable' => $vehicleAvailable, 'vehicleHeavyAvailable' => $vehicleHeavyAvailable)
+            'vehicleAvailable' => $vehicleAvailable, 'vehicleHeavyAvailable' => $vehicleHeavyAvailable, 'dateOut' => $bool)
     );
 });
 

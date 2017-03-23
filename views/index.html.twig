@@ -15,19 +15,19 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
-                        {% if error > 400 and error < 404%}
-                        <div class="col-md-12">
-                            <div class="alert alert-warning">
-                                <i class="fa fa-warning"></i>
-                            <b>Alerte !</b>
-                            {% if error == 401 %}
-                                Veuillez sélectionner un lien
-                            {% endif %}
-                            {% if error == 402 %}
-                                Veuillez entrer une date valide
-                            {% endif %}
+                        {% if error > 400 and error < 404 %}
+                            <div class="col-md-12">
+                                <div class="alert alert-warning">
+                                    <i class="fa fa-warning"></i>
+                                    <b>Alerte !</b>
+                                    {% if error == 401 %}
+                                        Veuillez sélectionner un lien.
+                                    {% endif %}
+                                    {% if error == 402 %}
+                                        Veuillez entrer une date valide.
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
                         {% endif %}
                     </div>
                     <form method="post" action="search_crossing">
@@ -76,6 +76,50 @@
                             <input type="submit" class="btn btn-primary"/>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h1 class="box-title">Prochaines traversées</h1>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover display">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Heure de départ</th>
+                                    <th>Bateau</th>
+                                    <th>Port de départ</th>
+                                    <th>Port d'arrivée</th>
+                                    <th>Détails des trajets</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for crossing in crossings %}
+                                    <tr>
+                                        <td>{{ crossing.date }}</td>
+                                        <td>{{ crossing.timeStart }}</td>
+                                        <td>{{ crossing.boat.name }}</td>
+                                        <td>{{ crossing.link.startingHarbor.name }}</td>
+                                        <td>{{ crossing.link.arrivalHarbor.name }}</td>
+                                        <td><a href="crossing/{{ crossing.id }}">
+                                                <button class="btn">Détails</button>
+                                            </a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a href="crossing">
+                            <button class="btn btn-primary">Voir les 100 prochaines</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

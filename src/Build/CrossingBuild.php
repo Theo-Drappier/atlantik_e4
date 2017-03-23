@@ -58,9 +58,10 @@ class CrossingBuild extends Build
         return self::$_instances['crossing'];
     }
 
-    public function findLast()
+    public function findLast($date, $hour, $limit)
     {
-        $getJson=file_get_contents($this->_address.$this->_table.'/findLast');
+        $getJson=file_get_contents($this->_address.$this->_table.'/findLast/'.$date.'/'.$hour.'/'.$limit);
+
         $tablClass=json_decode($getJson);
         $lesClass=[];
         foreach($tablClass as $row){

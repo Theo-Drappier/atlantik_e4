@@ -133,10 +133,11 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="submit" value="Réservez !" class="btn" {% if full == 403 %} disabled {% endif %}/>
+                                            <input type="submit" value="Réservez !" class="btn" {% if full == 403 or dateOut== 1 %} disabled {% endif %}/>
                                         </div>
                                         <div class="col-md-8">
                                             {% if full == 403 %}<label class="error">Cette traversée est complète !</label>{% endif %}
+                                            {% if dateOut == 1 %}<label class="error">La traversée s'est déjà déroulée</label>{% endif %}
                                         </div>
                                     </div>
                                 </div>

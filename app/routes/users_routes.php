@@ -20,9 +20,12 @@ $app->get('/', function () use ($app)
     }
     else
     {
+        $date = date("Y-m-d");
+        $hour = date("H:i:s");
+        $crossing = $app['build.crossing']->findLast($date, $hour, 20);
         $links = $app['build.link']->findAll();
         $render = $app['twig']->render(
-            'index.html.twig', array('user' => $app['session']->get('currentUser'), 'links' => $links, 'error' => $app['session']->get('error'))
+            'index.html.twig', array('user' => $app['session']->get('currentUser'), 'links' => $links, 'error' => $app['session']->get('error'), 'crossings' => $crossing)
         );
     }
     $app['session']->set('error', 200);
@@ -85,8 +88,8 @@ $app->post('/register', function() use ($app)
     }
     return $app->redirect('.');
 });
-
+/*
 $app->error(function() use ($app)
 {
     return $app['twig']->render('others/404.html.twig', array('user' => $app['session']->get('currentUser')));
-});
+});*/
