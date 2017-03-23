@@ -71,7 +71,13 @@ class CrossingBuild extends Build
 
     public function findByDateLink($date, $link_id)
     {
-
+        $getJson=file_get_contents($this->_address.$this->_table.'/byDateLink/'.$date.'/'.$link_id);
+        $tablClass=json_decode($getJson);
+        $lesClass=[];
+        foreach($tablClass as $row){
+            $lesClass[$row->id]=$this->build($row);
+        }
+        return $lesClass;
     }
 
     public function findByDateTime($date, $time)

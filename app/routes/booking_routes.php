@@ -43,14 +43,17 @@ $app->post('/newBooking', function() use ($app)
 
 $app->get('/listBooking', function() use ($app)
 {
-    $bookingUser = $app['build.booking']->findAllByUser($app['session']->get('currentUser')->getId());
-    $bookingTypeUser = [];
-    foreach($bookingUser as $row)
-    {
-        $bookingTypeUser[] = $app['build.bookingtype']->findAllByBooking($row->getId());
-    }
-    unset($bookingUser);
+    $bookingsUser = $app['build.booking']->findAllByUser($app['session']->get('currentUser')->getId());
     return $app['twig']->render('booking/list_booking.html.twig',
-        array('user' => $app['session']->get('currentUser'))
+        array('user' => $app['session']->get('currentUser'), 'bookings' => $bookingsUser)
+    );
+});
+
+$app->get('/booking/:id', function($id) use ($app)
+{
+    $bookingTypeUser = $app['build.bookingtype']->findAllByBooking($id);
+
+    return $app['twig']->render('booking/booking_id.html.twig',
+        array('user' => $app['session']->get('currentUser'), 'bookingType' => $bookingTypeUser, 'id' => $id)
     );
 });

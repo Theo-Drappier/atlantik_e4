@@ -46,13 +46,16 @@ $app->post('/search_crossing', function () use ($app)
         //$crossings = $app['build.crossing']->findByDateTime(Tools::dateFRToUS($_POST['date']), $_POST['hour']);
         $app['session']->set('error', 401);
     }
-    elseif (empty($_POST['date']))
+    elseif (10 != strlen($_POST['date']) || substr($_POST['date'], 2, 1) != '/' || empty($_POST['date']))
     {
         $app['session']->set('error', 402);
     }
-    elseif (10 != strlen($_POST['date']) || substr($_POST['date'], 2, 1) != '/')
+    elseif (empty($_POST['hour']))
     {
-        $app['session']->set('error', 403);
+        $crossings = $app['build.crossing']->findByDateLink(Tools::dateFRToUS($_POST['date']), $_POST['link']);
+        return $app['twig']->render(
+            'crossing/crossing.html.twig', array('user' => $app['session']->get('currentUser'), 'crossings' => $crossings)
+        );
     }
     else
     {
