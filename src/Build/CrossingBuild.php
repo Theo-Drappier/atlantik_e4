@@ -58,9 +58,9 @@ class CrossingBuild extends Build
         return self::$_instances['crossing'];
     }
 
-    public function findLast($date, $hour, $limit)
+    public function findLast($date, $limit)
     {
-        $getJson=file_get_contents($this->_address.$this->_table.'/findLast/'.$date.'/'.$hour.'/'.$limit);
+        $getJson=file_get_contents($this->_address.$this->_table.'/findLast/'.$date.'/'.$limit);
 
         $tablClass=json_decode($getJson);
         $lesClass=[];
@@ -103,3 +103,7 @@ class CrossingBuild extends Build
         return $lesClass;
     }
 }
+
+
+/*SELECT * FROM `crossing` WHERE date = CURDATE() AND time_start = "17:00:00" LIMIT 10;
+SELECT * FROM `crossing` WHERE date > CURRENT_DATE();
