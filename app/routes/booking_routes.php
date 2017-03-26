@@ -72,8 +72,9 @@ $app->get('/booking/{id}', function($id) use ($app)
         }
 
         $currDate = date("Y-m-d");
+        $currHour = date("H:i:s");
 
-        if($currDate >= Tools::dateFRToUS($bookingUser->getCrossing()->getDate()))
+        if($currDate >= Tools::dateFRToUS($bookingUser->getCrossing()->getDate()) && $currHour >= $bookingUser->getCrossing()->getTimeStart())
         {
             $app['session']->set('error', 403);
         }

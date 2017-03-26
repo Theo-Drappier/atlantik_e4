@@ -112,7 +112,7 @@
                 {% block sidebar %}
                 <li>
                     <a href="crossing">
-                        <i class="fa fa-dashboard"></i> <span>100 dernières traversées</span>
+                        <i class="fa fa-dashboard"></i> <span>Prochaines traversées</span>
                     </a>
                 </li>
                 <li>
@@ -183,7 +183,12 @@
 <!-- Initialize DataTable -->
 <script type="text/javascript">
     $('#table-crossing').DataTable();
+    $('#table-booking').DataTable({
+        "order": [[0, "desc"]]
+    });
 </script>
+
+{% block footer %}{% endblock %}
 
 </body>
 </html>

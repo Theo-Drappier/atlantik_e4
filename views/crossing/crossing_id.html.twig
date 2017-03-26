@@ -74,66 +74,72 @@
                                 <div class="form-group">
                                     <label>Nombre de passager :</label>
                                     {% if full == 400 and passengerAvailable == 0 %}<br><label class="error">Aucunes places passagers disponibles</label>{% endif %}
+                                    <br><label class="hidden error" id="errorPassengers">Vous avez dépassé le nombre maximum de passagers</label>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>Enfants (0-7)</label>
-                                            <input name="nbPassengersKids" type="number" class="form-control" value="0" max="{{ passengerAvailable }}"
+                                            <input name="nbPassengersKids" type="number" id="nbKids" class="form-control nbPassenger" value="0" max="{{ passengerAvailable }}"
                                                     {% if passengerAvailable == 0 %} disabled {% endif %}  />
                                         </div>
                                         <div class="col-md-4">
                                             <label>Juniors (8-18)</label>
-                                            <input name="nbPassengersJuniors" type="number" class="form-control" value="0" max="{{ passengerAvailable }}"
+                                            <input name="nbPassengersJuniors" type="number" id="nbJuniors" class="form-control nbPassenger" value="0" max="{{ passengerAvailable }}"
                                                     {% if passengerAvailable == 0 %} disabled {% endif %}  />
                                         </div>
                                         <div class="col-md-4">
                                             <label>Adultes</label>
-                                            <input name="nbPassengersAdults" type="number" class="form-control" value="0" max="{{ passengerAvailable }}"
+                                            <input name="nbPassengersAdults" type="number" id="nbAdults" class="form-control nbPassenger" value="0" max="{{ passengerAvailable }}"
                                                     {% if passengerAvailable == 0 %} disabled {% endif %}  />
                                         </div>
+                                        <input type="hidden" value="{{ passengerAvailable }}" id="nbPassengerMax" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre de véhicules légers :</label>
                                     {% if full == 400 and vehicleAvailable == 0 %}<label class="error">Aucunes places parking disponibles</label>{% endif %}
+                                    <br><label class="hidden error" id="errorVehicles">Vous avez dépassé le nombre maximum de véhicules</label>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>Inférieurs à 4m</label>
-                                            <input name="nbVehicles_4" type="number" class="form-control" value="0" max="{{ vehicleAvailable }}"
+                                            <input name="nbVehicles_4" type="number" id="nbVehicles_4" class="form-control nbVehicles" value="0" max="{{ vehicleAvailable }}"
                                                     {% if vehicleAvailable == 0 %} disabled {% endif %} />
                                         </div>
                                         <div class="col-md-4">
                                             <label>Inférieurs à 5m</label>
-                                            <input name="nbVehicles_5" type="number" class="form-control" value="0" max="{{ vehicleAvailable }}"
+                                            <input name="nbVehicles_5" type="number" id="nbVehicles_5" class="form-control nbVehicles" value="0" max="{{ vehicleAvailable }}"
                                                     {% if vehicleAvailable == 0 %} disabled {% endif %} />
                                         </div>
+                                        <input type="hidden" value="{{ vehicleAvailable }}" id="nbVehicleMax" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre de véhicules lourds :</label>
                                     {% if full == 400 and vehicleHeavyAvailable == 0 %}<label class="error">Aucunes places parking disponibles</label>{% endif %}
+                                    <br><label class="hidden error" id="errorVehiclesHeavy">Vous avez dépassé le nombre maximum de véhicules lourds</label>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>Fourgon</label>
-                                            <input name="nbVehiclesHeavyFour" type="number" class="form-control" value="0" max="{{ vehicleHeavyAvailable }}"
+                                            <input name="nbVehiclesHeavyFour" type="number" id="nbVehiclesFour" class="form-control nbVehiclesHeavy" value="0" max="{{ vehicleHeavyAvailable }}"
                                                     {% if vehicleHeavyAvailable == 0 %} disabled {% endif %} />
                                         </div>
                                         <div class="col-md-4">
                                             <label>Camping Car</label>
-                                            <input name="nbVehiclesHeavyCamCar" type="number" class="form-control" value="0" max="{{ vehicleHeavyAvailable }}"
+                                            <input name="nbVehiclesHeavyCamCar" type="number" id="nbVehiclesCamCar" class="form-control nbVehiclesHeavy" value="0" max="{{ vehicleHeavyAvailable }}"
                                                     {% if vehicleHeavyAvailable == 0 %} disabled {% endif %} />
                                         </div>
                                         <div class="col-md-4">
                                             <label>Camion</label>
-                                            <input name="nbVehiclesHeavyCamion" type="number" class="form-control" value="0" max="{{ vehicleHeavyAvailable }}"
+                                            <input name="nbVehiclesHeavyCamion" type="number" id="nbVehiclesCamion" class="form-control nbVehiclesHeavy" value="0" max="{{ vehicleHeavyAvailable }}"
                                                     {% if vehicleHeavyAvailable == 0 %} disabled {% endif %} />
                                         </div>
+                                        <input type="hidden" value="{{ vehicleHeavyAvailable }}" id="nbVehicleHeavyMax" />
                                     </div>
                                 </div>
                                 <input type="hidden" value="{{ crossing.id }}" name="crossingId" />
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="submit" value="Réservez !" class="btn" {% if full == 403 or dateOut== 1 %} disabled {% endif %}/>
+                                            <input type="submit" id="validate" value="Réservez !" class="btn" {% if full == 403 or dateOut== 1 %} disabled {% endif %}/>
                                         </div>
                                         <div class="col-md-8">
                                             {% if full == 403 %}<label class="error">Cette traversée est complète !</label>{% endif %}
@@ -148,4 +154,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript" src="lib/js/custom.js"></script>
 {% endblock %}

@@ -14,20 +14,24 @@ $app->before(function() use ($app)
 
 $app->get('/', function () use ($app)
 {
+    $app['session']->set('error', 200);
     if(!$app['session']->get('is_user'))
     {
         $render = $app['twig']->render('users/login.html.twig', array('error' => $app['session']->get('error')));
     }
     else
     {
+        $bookingsUser = $app['build.booking']->findAllByUser($app['session']->get('currentUser')->getId());
         $date = date("Y-m-d");
-        $crossing = $app['build.crossing']->findLast($date, 20);
+        $hour = date("H:i:s");
+        $crossing = $app['build.crossing']->findLast($date, $hour, 20);
         $links = $app['build.link']->findAll();
         $render = $app['twig']->render(
-            'index.html.twig', array('user' => $app['session']->get('currentUser'), 'links' => $links, 'error' => $app['session']->get('error'), 'crossings' => $crossing)
+            'index.html.twig',
+            array('user' => $app['session']->get('currentUser'), 'links' => $links, 'error' => $app['session']->get('error'),
+                'crossings' => $crossing, 'bookings' => $bookingsUser)
         );
     }
-    $app['session']->set('error', 200);
     return $render;
 });
 
@@ -87,8 +91,8 @@ $app->post('/register', function() use ($app)
     }
     return $app->redirect('.');
 });
-/*
+
 $app->error(function() use ($app)
 {
     return $app['twig']->render('others/404.html.twig', array('user' => $app['session']->get('currentUser')));
-});*/
+});
