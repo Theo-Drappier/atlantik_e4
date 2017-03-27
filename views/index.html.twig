@@ -8,7 +8,7 @@
 
 {% block contentmain %}
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box box-primary">
                 <div class="box-header">
                     <h2 class="box-title">Recherche de traversées</h2>
@@ -78,6 +78,8 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="col-md-9">
             <div class="box box-danger">
                 <div class="box-header">
                     <h1 class="box-title">Vos dernières réservations</h1>
@@ -89,6 +91,7 @@
                             <th>Date de départ</th>
                             <th>Heure de départ</th>
                             <th>Liaison</th>
+                            <th>Bateau</th>
                             <th>Détails de la réservation</th>
                         </tr>
                         </thead>
@@ -98,15 +101,23 @@
                                 <td>{{ booking.crossing.date }}</td>
                                 <td>{{ booking.crossing.timeStart }}</td>
                                 <td>{{ booking.crossing.link.startingHarbor.name }} &rarr; {{ booking.crossing.link.arrivalHarbor.name }}</td>
+                                <td>{{ booking.crossing.boat.name }}</td>
                                 <td><a href="booking/{{ booking.id }}"><button class="btn">Détails</button></a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
+                    <div class="form-group">
+                        <a href="listBooking">
+                            <button class="btn btn-primary">Voir la liste complète</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header">
                     <h1 class="box-title">Prochaines traversées</h1>
