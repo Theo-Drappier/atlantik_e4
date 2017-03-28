@@ -20,22 +20,37 @@ $app->post('/newBooking', function() use ($app)
     $crossing_id = $_POST['crossingId'];
 
 
-
-    $booking_id = $app['build.booking']->insert($crossing_id, $app['session']->get('currentUser')->getId());
-
-    if($booking_id->message == 'Success')
+    $compt = 0;
+    foreach($nbQuantity as $row)
     {
-        $i = 1;
-        foreach($nbQuantity as $row)
+        if($row != 0)
         {
-            if($row != 0)
-            {
-                $app['build.bookingtype']->insert($row, $booking_id->id, $i);
-            }
-            $i++;
+            $compt++;
         }
+    }
 
-        return $app->redirect('listBooking');
+    if($compt != 0)
+    {
+        $booking_id = $app['build.booking']->insert($crossing_id, $app['session']->get('currentUser')->getId());
+
+        if($booking_id->message == 'Success')
+        {
+            $i = 1;
+            foreach($nbQuantity as $row)
+            {
+                if($row != 0)
+                {
+                    $app['build.bookingtype']->insert($row, $booking_id->id, $i);
+                }
+                $i++;
+            }
+
+            return $app->redirect('listBooking');
+        }
+        else
+        {
+            return $app->redirect('crossing/'.$crossing_id);
+        }
     }
     else
     {
