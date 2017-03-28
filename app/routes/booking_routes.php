@@ -76,7 +76,7 @@ $app->get('/booking/{id}', function($id) use ($app)
 
         if(($currDate == Tools::dateFRToUS($bookingUser->getCrossing()->getDate()) && $currHour >= $bookingUser->getCrossing()->getTimeStart()) || $currDate > Tools::dateFRToUS($bookingUser->getCrossing()->getDate()))
         {
-            $app['session']->set('error', 403);
+            $app['session']->set('error', 404);
         }
 
         return $app['twig']->render('booking/booking_id.html.twig',

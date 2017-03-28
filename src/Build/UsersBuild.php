@@ -47,6 +47,8 @@ class UsersBuild extends Build
     public function insert(array $userAdd)
     {
         $url = $this->_address.$this->_table.'/add/'.$userAdd['firstname'].'/'.$userAdd['lastname'].'/'.$userAdd['address'].'/'.$userAdd['postcode'].'/'.$userAdd['city'].'/'.$userAdd['email'].'/'.sha1($userAdd['password']);
+        $url = str_replace(' ','_',$url);
+        var_dump($url);
         $result = file_get_contents($url);
         return json_decode($result);
     }

@@ -14,7 +14,6 @@ $app->before(function() use ($app)
 
 $app->get('/', function () use ($app)
 {
-    $app['session']->set('error', 200);
     if(!$app['session']->get('is_user'))
     {
         $render = $app['twig']->render('users/login.html.twig', array('error' => $app['session']->get('error')));
@@ -94,5 +93,12 @@ $app->post('/register', function() use ($app)
 
 $app->error(function() use ($app)
 {
-    return $app['twig']->render('others/404.html.twig', array('user' => $app['session']->get('currentUser')));
+    if(!$app['session']->get('user'))
+    {
+        return $app->redirect('.');
+    }
+    else
+    {
+        return $app['twig']->render('others/404.html.twig', array('user' => $app['session']->get('currentUser')));
+    }
 });

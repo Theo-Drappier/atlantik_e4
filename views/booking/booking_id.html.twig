@@ -67,7 +67,7 @@
                     <form action="deleteBooking" method="post">
                         <div class="form-group">
                             <input type="hidden" value="{{ id }}" name="booking_id" />
-                            <button type="submit" class="btn btn-danger" {% if error == 403 %}disabled{% endif %}>Annuler la réservation</button>
+                            <button type="submit" class="btn btn-danger" {% if error == 404 %}disabled{% endif %}>Annuler la réservation</button>
                         </div>
                     </form>
                 </div>
