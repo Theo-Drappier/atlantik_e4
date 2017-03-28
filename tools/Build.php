@@ -6,7 +6,7 @@ abstract class Build
 {
 
     protected $_table;
-    protected $_address = 'http://127.0.0.1/E4/altantik_API/';
+    protected $_address = 'http://127.0.0.1/E4/atlantik_API/';
     protected static $_instances = array();
 
     public abstract static function getInstances();
